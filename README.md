@@ -24,5 +24,17 @@ respuesta:
 ![Capture4](https://user-images.githubusercontent.com/48265107/74042934-75e3b200-4996-11ea-9510-ad90b2adb593.PNG)
 
 
+## Construido con
+
+* [Java] (https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+* [Maven] (https://maven.apache.org/)
 
 
+## Autores
+
+* Jimmy Armando Chirivi Nivia
+
+
+## Licencia
+
+Este proyecto está licenciado bajo la Licencia MIT - vea el archivo [LICENSE.md] (LICENSE.md) para más detalles
