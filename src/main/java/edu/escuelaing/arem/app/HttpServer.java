@@ -41,6 +41,7 @@ public class HttpServer {
 		         + "</head>\n"
 		         + "<body>\n"
 		         + "<h1>Mi propio mensaje</h1>\n"
+		 		         
 		         + "</body>\n"
 		         + "</html>\n" + inputLine;
 		out.println(outputLine);
@@ -50,4 +51,9 @@ public class HttpServer {
 		clientSocket.close();
 		serverSocket.close();
 		}
+	
+		public int cuadrado(int cuadrado) {
+			return cuadrado*cuadrado;
+		}
+	
 	}

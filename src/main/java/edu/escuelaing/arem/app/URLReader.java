@@ -30,7 +30,10 @@ public class URLReader {
 		try {
 			FileWriter write = new FileWriter("C:\\Users\\jimmy.chirivi\\Downloads\\resultado.html");
 			BufferedWriter bf = new BufferedWriter(write);
-			bf.write("ddd");
+			for (int i = 0; i < arreglo.size();i++) {
+				bf.write(arreglo.get(i));
+			}
+			
 			bf.close();
 			
 		} catch (IOException e) {				
