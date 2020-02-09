@@ -7,12 +7,12 @@ import java.util.ArrayList;
 
 
 public class URLReader {
-	static ArrayList <String> lines = new ArrayList<>(); 
+	static ArrayList <String> lines = new ArrayList<String>(); 
 	public static void main(String[] args) throws Exception {
 		URL google = new URL("http://www.google.com");
 			
 		
-		try (BufferedReader reader = new BufferedReader(new InputStreamReader(google.openStream()))) {
+		/*try (BufferedReader reader = new BufferedReader(new InputStreamReader(google.openStream()))) {
 				String inputLine = null;
 				while ((inputLine = reader.readLine()) != null) {
 					lines.add(inputLine);
@@ -21,7 +21,7 @@ public class URLReader {
 		}
 		catch (IOException x) {
 				System.err.println(x);
-		}
+		}*/
 		
 	}
 

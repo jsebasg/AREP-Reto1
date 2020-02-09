@@ -15,19 +15,15 @@ import java.util.ArrayList;
 
 public class ServidorWeb {
 	
-	public static ServerSocket serverSocket = null;
-	public static Socket clientSocket = null;
-	
 	public static void main(String[] args) throws IOException {
-		
+		ServerSocket serverSocket = null;
 		try {
-			serverSocket = new ServerSocket(getPort());
-		}
-		catch (IOException e) {
-			System.err.println("Could not listen on port: 8080.");
+			serverSocket = new ServerSocket(8000);
+		} catch (IOException e) {
+			System.err.println("Could not listen on port: 35000.");
 			System.exit(1);
 		}
-		
+		Socket clientSocket = null;
 		try {
 			System.out.println("Listo para recibir ...");
 			clientSocket = serverSocket.accept();
@@ -35,28 +31,50 @@ public class ServidorWeb {
 			System.err.println("Accept failed.");
 			System.exit(1);
 		}
+
 		PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
 		BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-		String inputline, outputLine;
+		String inputLine, outputLine;
+		System.out.println(clientSocket.getInputStream());
+		System.out.println(in);
+		System.out.println(in.readLine());
+		String[] arch = null; 
 		
-		while ((inputline = in.readLine()) != null) {
-			System.out.println("Received: " + inputline);
-			String[] arch = inputline.split("/");
+		while ((inputLine = in.readLine()) != null) {
+			System.out.println("Received: " + inputLine);
+			arch = inputLine.split("/");
 			if(! in.ready()) {
-				Archivo(arch[1]);	
-			}			
+				break;	
+			}
 		}
+		out.println(Archivo(arch[1]));
+		out.close();
+		in.close();
+		clientSocket.close();
+		serverSocket.close();
 		
 	}
 	
 	
-	public static void Archivo(String a) throws IOException {
+	public static String Archivo(String a) throws IOException {
 		String [] archivo = a.split("."); 
-		String carpeta = "src/resource/";
-		File arch = new File(carpeta + a);
+		String carpeta = "/src/resource/";
+		String outputLine = null;
+		File arch = new File(System.getProperty("user.dir")+carpeta + a);
 		if (arch.exists()) {
 			if (archivo[1].equals("html")) {
-				FileInputStream filecall = new FileInputStream(arch);
+				String lineas;
+				System.out.println("entra esta vuelta");
+				FileReader f = new FileReader(System.getProperty("user.dir")+carpeta + a);
+				BufferedReader bf = new BufferedReader(f);
+				while ((lineas = bf.readLine()) != null) {
+					System.out.println(lineas);
+					outputLine += lineas; 
+				}
+				
+				bf.close();
+				return outputLine;
+				/*FileInputStream filecall = new FileInputStream(arch);
 				byte[] datos = new byte [(int) arch.length()];
 				filecall.read(datos);
 				filecall.close();
@@ -70,7 +88,7 @@ public class ServidorWeb {
 					strB.append(inputLine);
 				}
 				System.out.println(strB.toString());
-				br.close();
+				br.close();*/
 			}
 			else if (archivo[1].equals("jpg") || archivo[1].equals("png")) {
 				
@@ -78,7 +96,8 @@ public class ServidorWeb {
 			else {
 				
 			}
-		}	
+		}
+		return outputLine;
 	}
 	
 	

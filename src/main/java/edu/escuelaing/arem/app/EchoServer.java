@@ -7,7 +7,7 @@ public class EchoServer {
 	public static void main(String[] args) throws IOException {
 		ServerSocket serverSocket = null;
 		try {
-			 serverSocket = new ServerSocket(8080);
+			 serverSocket = new ServerSocket(35000);
 		} catch (IOException e) {
 			System.err.println("Could not listen on port: 35000.");
 			System.exit(1);
