@@ -1,6 +1,7 @@
 package edu.escuelaing.arem.app;
 
 import java.awt.image.BufferedImage;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -18,8 +19,19 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
+/**
+ * 
+ * @author jimmy.chirivi
+ * 
+ *
+ */
+
 public class ServidorWeb {
-	
+	/**
+	 * Clase principal encargada de crear el servidor y el cliente y mostrar los resultados del llamado del archivo
+	 * @param args
+	 * @throws IOException
+	 */
 	public static void main(String[] args) throws IOException {
 		ServerSocket serverSocket = null;
 		try {
@@ -62,7 +74,13 @@ public class ServidorWeb {
 		
 	}
 	
-	
+	/**
+	 * Clase encargada de buscar los archivos en una carpeta especifica y mostrarlos en un navegador
+	 * @param a
+	 * @param clientOutput
+	 * @param out
+	 * @throws IOException
+	 */
 	public static void Archivo(String a,OutputStream clientOutput,PrintWriter out) throws IOException {
 		String [] archivo = a.split("\\."); 
 		String carpeta = "/src/resource/";
@@ -120,7 +138,10 @@ public class ServidorWeb {
 		}
 	}
 	
-	
+	/**
+	 * Clase encargada de retornar el puerto donde se va dar a ver la pagina
+	 * @return puerto donde inicia la pagina
+	 */
 	static int getPort() {
 	      if (System.getenv("PORT") != null) {
 	          return Integer.parseInt(System.getenv("PORT"));
