@@ -24,6 +24,32 @@ respuesta:
 ![Capture4](https://user-images.githubusercontent.com/48265107/74042934-75e3b200-4996-11ea-9510-ad90b2adb593.PNG)
 
 
+# RETO 1
+
+Escriba un servidor web que soporte múlltiples solicitudes seguidas (no concurrentes). El servidor debe retornar todos los archivos solicitados, incluyendo páginas html e imágenes. Construya un sitio web con javascript para probar su servidor. Despliegue su solución en Heroku. 
+
+**RECOMENDACION PROBAR CON HEROKU**
+* Clase ServidorWeb
+
+Archivos tipo HTML
+
+![Capture1](https://user-images.githubusercontent.com/48265107/74475894-4f31e980-4e76-11ea-9cb7-ea520d248547.PNG)
+
+
+Archivos tipo JPG o PNG
+
+![Capture2](https://user-images.githubusercontent.com/48265107/74476055-9fa94700-4e76-11ea-898c-206a1e7ef6d0.PNG)
+
+
+![Capture3](https://user-images.githubusercontent.com/48265107/74476057-a0da7400-4e76-11ea-9926-0036fc247117.PNG)
+
+
+Archivos tipo JS
+
+![Capture4](https://user-images.githubusercontent.com/48265107/74476177-d1baa900-4e76-11ea-9530-2f73fc117e2f.PNG)
+
+
+
 ## Construido con
 
 * [Java] (https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
