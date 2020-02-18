@@ -28,132 +28,134 @@ import javax.imageio.ImageIO;
 
 public class ServidorWeb {
 	/**
-	 * Clase principal encargada de crear el servidor y el cliente y mostrar los resultados del llamado del archivo
+	 * Clase principal encargada de crear el servidor y el cliente y mostrar los
+	 * resultados del llamado del archivo
+	 * 
 	 * @param args
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
-		ServerSocket serverSocket = null;
-		try {
-			serverSocket = new ServerSocket(getPort());
-		} catch (IOException e) {
-			System.err.println("Could not listen on port: 35000.");
-			System.exit(1);
-		}
-		Socket clientSocket = null;
-		try {
-			System.out.println("Listo para recibir ...");
-			clientSocket = serverSocket.accept();
-		} catch (IOException e) {
-			System.err.println("Accept failed.");
-			System.exit(1);
-		}
+		
+		while (true) {
+			ServerSocket serverSocket = null;
+			try {
+				serverSocket = new ServerSocket(getPort());
+			} catch (IOException e) {
+				System.err.println("Could not listen on port: 35000.");
+				System.exit(1);
+			}
+			Socket clientSocket = null;
+			try {
+				System.out.println("Listo para recibir ...");
+				clientSocket = serverSocket.accept();
+			} catch (IOException e) {
+				System.err.println("Accept failed.");
+				System.exit(1);
+			}
 
-		PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-		BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-		String inputLine, outputLine;
-		String[] arch = null;
-		String[] elem = null;
-			
-		
-		while ((inputLine = in.readLine()) != null) {
-		      System.out.println("Recibí: " + inputLine);
-		      if (inputLine.contains("GET")) {
-		    	  arch = inputLine.split("/");
-		    	  elem = arch[1].split(" ");  
-		      }
-		      if (!in.ready()) {break; }
+			PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+			BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+			String inputLine, outputLine;
+			String[] arch = null;
+			String[] elem = null;
+
+			while ((inputLine = in.readLine()) != null) {
+				System.out.println("Recibí: " + inputLine);
+				if (inputLine.contains("GET")) {
+					arch = inputLine.split("/");
+					elem = arch[1].split(" ");
+				}
+				if (!in.ready()) {
+					break;
+				}
+			}
+
+			Archivo(elem[0], clientSocket.getOutputStream(), out);
+			out.close();
+			in.close();
+			clientSocket.close();
+			serverSocket.close();
 		}
-		
-		
-		Archivo(elem[0],clientSocket.getOutputStream(),out);
-		out.close();
-		in.close();
-		clientSocket.close();
-		serverSocket.close();
-		
 	}
-	
+
 	/**
-	 * Clase encargada de buscar los archivos en una carpeta especifica y mostrarlos en un navegador
+	 * Clase encargada de buscar los archivos en una carpeta especifica y mostrarlos
+	 * en un navegador
+	 * 
 	 * @param a
 	 * @param clientOutput
 	 * @param out
 	 * @throws IOException
 	 */
-	public static void Archivo(String a,OutputStream clientOutput,PrintWriter out) throws IOException {
-		String [] archivo = a.split("\\."); 
+	public static void Archivo(String a, OutputStream clientOutput, PrintWriter out) throws IOException {
+		String[] archivo = a.split("\\.");
 		String carpeta = "/src/resource/";
 		String outputLine = null;
-		File arch = new File(System.getProperty("user.dir")+carpeta + a);
+		File arch = new File(System.getProperty("user.dir") + carpeta + a);
 		if (arch.exists()) {
 			if (archivo[1].equals("html")) {
 				String lineas;
-				FileReader f = new FileReader(System.getProperty("user.dir")+carpeta + a);
+				FileReader f = new FileReader(System.getProperty("user.dir") + carpeta + a);
 				BufferedReader bf = new BufferedReader(f);
 				while ((lineas = bf.readLine()) != null) {
-					outputLine += lineas; 
+					outputLine += lineas;
 				}
-				
+
 				bf.close();
-				/*out.println("HTTP/1.1 404 Not Found \r\n"
-	                    + "Content-Type: text/html; charset=\"utf-8\" \r\n"
-	                    + "\r\n"+ outputLine);*/
-				
-				out.write(("HTTP/1.1 404 Not Found \r\n"
-	                    + "Content-Type: text/html; charset=\"utf-8\" \r\n"
-	                    + "\r\n"+ outputLine));
-			}
-			else if (archivo[1].equals("jpg") || archivo[1].equals("png")) {
-				
+				/*
+				 * out.println("HTTP/1.1 404 Not Found \r\n" +
+				 * "Content-Type: text/html; charset=\"utf-8\" \r\n" + "\r\n"+ outputLine);
+				 */
+
+				out.write(("HTTP/1.1 404 Not Found \r\n" + "Content-Type: text/html; charset=\"utf-8\" \r\n" + "\r\n"
+						+ outputLine));
+			} else if (archivo[1].equals("jpg") || archivo[1].equals("png")) {
+
 				System.out.println("entra a la vuelta");
-				
+
 				BufferedImage imagen = ImageIO.read(arch);
-				
+
 				ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-				
+
 				DataOutputStream w = new DataOutputStream(clientOutput);
-				
-				ImageIO.write (imagen, archivo[1], bytes );
-				
-				
-				 w.writeBytes("HTTP/1.1 404 Not Found \r\n");
-				 w.writeBytes("Content-Type: image/"+archivo[1]+"; charset=\"utf-8\" \r\n");
-		         w.writeBytes("\r\n");
-		         w.write(bytes.toByteArray());
-				
-				System.out.println(System.getProperty("user.dir")+carpeta + a);				
-			
-			}
-			else {
-				
+
+				ImageIO.write(imagen, archivo[1], bytes);
+
+				w.writeBytes("HTTP/1.1 404 Not Found \r\n");
+				w.writeBytes("Content-Type: image/" + archivo[1] + "; charset=\"utf-8\" \r\n");
+				w.writeBytes("\r\n");
+				w.write(bytes.toByteArray());
+
+				System.out.println(System.getProperty("user.dir") + carpeta + a);
+
+			} else {
+
 				String lineas;
-				FileReader f = new FileReader(System.getProperty("user.dir")+carpeta + a);
+				FileReader f = new FileReader(System.getProperty("user.dir") + carpeta + a);
 				BufferedReader bf = new BufferedReader(f);
 				while ((lineas = bf.readLine()) != null) {
-					outputLine += lineas; 
+					outputLine += lineas;
 				}
-				
+
 				bf.close();
-				
-				out.write(("HTTP/1.1 404 Not Found \r\n"
-	                    + "Content-Type: text/html; charset=\"utf-8\" \r\n"
-	                    + "\r\n"+ outputLine));
+
+				out.write(("HTTP/1.1 404 Not Found \r\n" + "Content-Type: text/html; charset=\"utf-8\" \r\n" + "\r\n"
+						+ outputLine));
 			}
 		}
 	}
-	
+
 	/**
 	 * Clase encargada de retornar el puerto donde se va dar a ver la pagina
+	 * 
 	 * @return puerto donde inicia la pagina
 	 */
 	static int getPort() {
-	      if (System.getenv("PORT") != null) {
-	          return Integer.parseInt(System.getenv("PORT"));
-	      }        
-	         
-	      return 8080; //returns default port if heroku-port isn't set(i.e. on localhost)    }
-	  }
-	
-	
+		if (System.getenv("PORT") != null) {
+			return Integer.parseInt(System.getenv("PORT"));
+		}
+
+		return 8080; // returns default port if heroku-port isn't set(i.e. on localhost) }
+	}
+
 }
