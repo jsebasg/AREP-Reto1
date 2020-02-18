@@ -109,7 +109,7 @@ public class ServidorWeb {
 
 				out.write(("HTTP/1.1 404 Not Found \r\n" + "Content-Type: text/html; charset=\"utf-8\" \r\n" + "\r\n"
 						+ outputLine));
-			} else if (archivo[1].equals("jpg") || archivo[1].equals("png")) {
+			}if (archivo[1].equals("jpg") || archivo[1].equals("png")) {
 
 				System.out.println("entra a la vuelta");
 
@@ -128,7 +128,7 @@ public class ServidorWeb {
 
 				System.out.println(System.getProperty("user.dir") + carpeta + a);
 
-			} else {
+			}if (archivo[1].equals("js")){
 
 				String lineas;
 				FileReader f = new FileReader(System.getProperty("user.dir") + carpeta + a);
