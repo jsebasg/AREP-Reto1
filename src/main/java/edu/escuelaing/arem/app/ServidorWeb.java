@@ -96,9 +96,9 @@ public class ServidorWeb {
 				}
 				
 				bf.close();
-				out.println("HTTP/1.1 200 OK\r\n"
-				        + "Content-Type: text/html\r\n"
-				         + "\r\n"+ outputLine); 
+				out.println("HTTP/1.1 404 Not Found \r\n"
+	                    + "Content-Type: text/html; charset=\"utf-8\" \r\n"
+	                    + "\r\n"+ outputLine); 
 			}
 			else if (archivo[1].equals("jpg") || archivo[1].equals("png")) {
 				
@@ -113,8 +113,8 @@ public class ServidorWeb {
 				ImageIO.write (imagen, archivo[1], bytes );
 				
 				
-				 w.writeBytes("HTTP/1.1 200 OK \r\n");
-		         w.writeBytes("Content-Type: image/"+archivo[1]+" \r\n");
+				 w.writeBytes("HTTP/1.1 404 Not Found \r\n");
+				 w.writeBytes("Content-Type: image/"+archivo[1]+"; charset=\"utf-8\" \r\n");
 		         w.writeBytes("\r\n");
 		         w.write(bytes.toByteArray());
 				
@@ -131,9 +131,9 @@ public class ServidorWeb {
 				}
 				
 				bf.close();
-				out.println("HTTP/1.1 200 OK\r\n"
-				        + "Content-Type: text/html\r\n"
-				         + "\r\n"+ outputLine);
+				out.println("HTTP/1.1 404 Not Found \r\n"
+	                    + "Content-Type: text/html; charset=\"utf-8\" \r\n"
+	                    + "\r\n"+ outputLine);
 			}
 		}
 	}
