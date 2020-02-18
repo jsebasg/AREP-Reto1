@@ -96,9 +96,13 @@ public class ServidorWeb {
 				}
 				
 				bf.close();
-				out.println("HTTP/1.1 404 Not Found \r\n"
+				/*out.println("HTTP/1.1 404 Not Found \r\n"
 	                    + "Content-Type: text/html; charset=\"utf-8\" \r\n"
-	                    + "\r\n"+ outputLine); 
+	                    + "\r\n"+ outputLine);*/
+				
+				out.write(("HTTP/1.1 404 Not Found \r\n"
+	                    + "Content-Type: text/html; charset=\"utf-8\" \r\n"
+	                    + "\r\n"+ outputLine));
 			}
 			else if (archivo[1].equals("jpg") || archivo[1].equals("png")) {
 				
@@ -131,9 +135,10 @@ public class ServidorWeb {
 				}
 				
 				bf.close();
-				out.println("HTTP/1.1 404 Not Found \r\n"
+				
+				out.write(("HTTP/1.1 404 Not Found \r\n"
 	                    + "Content-Type: text/html; charset=\"utf-8\" \r\n"
-	                    + "\r\n"+ outputLine);
+	                    + "\r\n"+ outputLine));
 			}
 		}
 	}
