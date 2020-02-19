@@ -64,13 +64,16 @@ public class ServidorWeb {
 				if (inputLine.contains("GET")) {
 					arch = inputLine.split("/");
 					elem = arch[1].split(" ");
+					String[] archivo = elem[0].split("\\.");
+					System.out.println("sdfsdf: ....... "+archivo[1]);
+					if (archivo[1].equals("html") || archivo[1].equals("js") || archivo[1].equals("jpg") || archivo[1].equals("png")) {
+						Archivo(elem[0], clientSocket.getOutputStream(), out);
+					}
 				}
 				if (!in.ready()) {
 					break;
 				}
 			}
-
-			Archivo(elem[0], clientSocket.getOutputStream(), out);
 			out.close();
 			in.close();
 			clientSocket.close();
