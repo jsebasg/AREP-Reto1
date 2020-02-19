@@ -51,7 +51,20 @@ Archivos tipo JS
 
 # Heroku
 
-https://taller-clientes-y-servicios.herokuapp.com
+
+-Para abrir archivos de tipo HTML abrir el link:
+https://taller-clientes-y-servicios.herokuapp.com/pagina.html
+
+-Para abrir archivos de tipo JPG o PNG abrir el link:
+
+https://taller-clientes-y-servicios.herokuapp.com/carro.jpg
+
+https://taller-clientes-y-servicios.herokuapp.com/dado.png
+
+-Para abrir archivos JS abrir el link:
+
+https://taller-clientes-y-servicios.herokuapp.com/java.js
+
 
 
 ## Construido con
