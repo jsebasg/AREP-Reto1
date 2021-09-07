@@ -26,37 +26,8 @@ public class ValoresURL {
 		System.out.println("Query: " + getQuery());
 		System.out.println("File: " + getFile());
 		System.out.println("Ref: " + getRef());
-		
-		
-		crearArchivo();
-		
 	}
-	
-	
-	public static void crearArchivo() {
-		
-		try {
-			FileWriter write = new FileWriter("C:\\Users\\jimmy.chirivi\\Downloads\\resultado.html");
-			BufferedWriter bf = new BufferedWriter(write);
-			bf.write("<!DOCTYPE html>"
-					+"<html>"
-					+"<head>"
-					+"<title> respuesta </title>"
-					+"</head>"
-					+"<body>"
-					+"<p>"+getProtocol()+","+getAuthority()+","+getHost()+","+getPort()+","+getPath()+","+getQuery()+","+getFile()+","+getRef()+"</p>"
-					+"</body>"
-					+"</html>"
-					
-					
-					);
-			bf.close();
-			
-		} catch (IOException e) {				
-			e.printStackTrace();
-		}
-		
-	}
+
 	
 	public static String getProtocol() {
 		return link.getProtocol();

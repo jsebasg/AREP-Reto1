@@ -20,20 +20,10 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 /**
- * 
- * @author jimmy.chirivi
- * 
- *
+ * @author jsebasg
  */
 
 public class ServidorWeb {
-	/**
-	 * Clase principal encargada de crear el servidor y el cliente y mostrar los
-	 * resultados del llamado del archivo
-	 * 
-	 * @param args
-	 * @throws IOException
-	 */
 	public static void main(String[] args) throws IOException {
 		
 		while (true) {
@@ -41,7 +31,7 @@ public class ServidorWeb {
 			try {
 				serverSocket = new ServerSocket(getPort());
 			} catch (IOException e) {
-				System.err.println("Could not listen on port: 35000.");
+				System.err.println("Could not listen on port: 8080.");
 				System.exit(1);
 			}
 			Socket clientSocket = null;
@@ -49,7 +39,6 @@ public class ServidorWeb {
 				System.out.println("Listo para recibir ...");
 				clientSocket = serverSocket.accept();
 			} catch (IOException e) {
-				System.err.println("Accept failed.");
 				System.exit(1);
 			}
 
@@ -60,14 +49,17 @@ public class ServidorWeb {
 			String[] elem = null;
 
 			while ((inputLine = in.readLine()) != null) {
-				System.out.println("Recibí: " + inputLine);
 				if (inputLine.contains("GET")) {
 					arch = inputLine.split("/");
 					elem = arch[1].split(" ");
 					String[] archivo = elem[0].split("\\.");
-					System.out.println("sdfsdf: ....... "+archivo[1]);
-					if (archivo[1].equals("html") || archivo[1].equals("js") || archivo[1].equals("jpg") || archivo[1].equals("png")) {
-						Archivo(elem[0], clientSocket.getOutputStream(), out);
+					if(archivo.length == 1 ){
+						file("index.html", clientSocket.getOutputStream(), out);
+					}
+					else {
+						if (archivo[1].equals("html") || archivo[1].equals("js") || archivo[1].equals("jpg") || archivo[1].equals("png")) {
+							file(elem[0], clientSocket.getOutputStream(), out);
+						}
 					}
 				}
 				if (!in.ready()) {
@@ -80,20 +72,10 @@ public class ServidorWeb {
 			serverSocket.close();
 		}
 	}
-
-	/**
-	 * Clase encargada de buscar los archivos en una carpeta especifica y mostrarlos
-	 * en un navegador
-	 * 
-	 * @param a
-	 * @param clientOutput
-	 * @param out
-	 * @throws IOException
-	 */
-	public static void Archivo(String a, OutputStream clientOutput, PrintWriter out) throws IOException {
+	public static void file(String a, OutputStream clientOutput, PrintWriter out) throws IOException {
 		String[] archivo = a.split("\\.");
 		String carpeta = "/src/resource/";
-		String outputLine = null;
+		String outputLine = "";
 		File arch = new File(System.getProperty("user.dir") + carpeta + a);
 		if (arch.exists()) {
 			if (archivo[1].equals("html")) {
@@ -101,20 +83,13 @@ public class ServidorWeb {
 				FileReader f = new FileReader(System.getProperty("user.dir") + carpeta + a);
 				BufferedReader bf = new BufferedReader(f);
 				while ((lineas = bf.readLine()) != null) {
+					System.out.println(lineas);
 					outputLine += lineas;
 				}
-
 				bf.close();
-				/*
-				 * out.println("HTTP/1.1 404 Not Found \r\n" +
-				 * "Content-Type: text/html; charset=\"utf-8\" \r\n" + "\r\n"+ outputLine);
-				 */
-
 				out.write(("HTTP/1.1 404 Not Found \r\n" + "Content-Type: text/html; charset=\"utf-8\" \r\n" + "\r\n"
 						+ outputLine));
 			}if (archivo[1].equals("jpg") || archivo[1].equals("png")) {
-
-				System.out.println("entra a la vuelta");
 
 				BufferedImage imagen = ImageIO.read(arch);
 
@@ -128,9 +103,6 @@ public class ServidorWeb {
 				w.writeBytes("Content-Type: image/" + archivo[1] + "; charset=\"utf-8\" \r\n");
 				w.writeBytes("\r\n");
 				w.write(bytes.toByteArray());
-
-				System.out.println(System.getProperty("user.dir") + carpeta + a);
-
 			}if (archivo[1].equals("js")){
 
 				String lineas;
@@ -148,11 +120,6 @@ public class ServidorWeb {
 		}
 	}
 
-	/**
-	 * Clase encargada de retornar el puerto donde se va dar a ver la pagina
-	 * 
-	 * @return puerto donde inicia la pagina
-	 */
 	static int getPort() {
 		if (System.getenv("PORT") != null) {
 			return Integer.parseInt(System.getenv("PORT"));
