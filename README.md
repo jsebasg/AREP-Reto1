@@ -1,5 +1,5 @@
 # Taller 03 
-**Juan Sebastian Garcia Hincapie 
+###Juan Sebastian Garcia Hincapie 
 
 ## RETO 1
 
