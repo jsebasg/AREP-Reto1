@@ -1,4 +1,5 @@
 # Taller 03 
+*Juan Sebastian Garcia Hincapie 
 
 ## RETO 1
 
@@ -34,12 +35,6 @@ https://arep-reto1.herokuapp.com
 
 * [Java] (https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 * [Maven] (https://maven.apache.org/)
-
-
-## Autores
-
-* Juan Sebastian Garcia Hincapie 
-
 
 ## Licencia
 
