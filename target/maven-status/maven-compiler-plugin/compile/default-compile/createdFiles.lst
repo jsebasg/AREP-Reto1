@@ -1,0 +1,6 @@
+edu\escuelaing\arem\app\URLReader.class
+edu\escuelaing\arem\app\App.class
+edu\escuelaing\arem\app\EchoServer.class
+edu\escuelaing\arem\app\EchoClient.class
+edu\escuelaing\arem\app\ServidorWeb.class
+edu\escuelaing\arem\app\ValoresURL.class
